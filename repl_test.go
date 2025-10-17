@@ -31,22 +31,16 @@ func TestCleanInput(t *testing.T) {
 	
 	for _, c := range cases {
 		actual := cleanInput(c.input)
-		// check the length of the actual slice against the expected slice 
-		// if they don't match, use t.Errorf to print an error message 
-		// and fail the test 
+
 		if len(actual) != len(c.expected) {
 			t.Errorf("length of tested slice is different than the expected slice")
-			t.Fail()
 		}
+
 		for i := range actual {
 			word := actual[i]
 			expectedWord := c.expected[i]
-			// check each word in the slice 
-			// if they don't match, use t.Errorf to print an error message 
-			// and fail the test 
 			if word != expectedWord {
 				t.Errorf("tested word is different than the expected word")
-				t.Fail()
 			}
 		}
 	}
