@@ -1,18 +1,32 @@
 package main 
 
 import (
-	"fmt"
 	"strings"
+	"fmt"
+	"bufio"
+	"os"
 ) 
 
-func cleanInput(text string) []string {
-	trimmed := strings.TrimSpace(text)
+func startRepl() {
+	scanner := bufio.NewScanner(os.Stdin)
 
-	if len(trimmed) == 0 {
-		return []string{}
+	for {
+		fmt.Print("Pokedex > ")
+		
+		scanner.Scan()			
+		words := cleanInput(scanner.Text())
+
+		if len(words) == 0 {
+			continue 
+		}
+
+		commandName := words[0]
+
+		fmt.Println("Your command was:", commandName)
 	}
-
-	splittedWords := strings.Split(trimmed, " ")
-
-	return splittedWords 
+}
+func cleanInput(text string) []string {
+	lowered := strings.ToLower(text)
+	words := strings.Fields(lowered)
+	return words
 }
