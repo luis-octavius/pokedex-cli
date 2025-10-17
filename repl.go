@@ -1,35 +1,35 @@
-package main 
+package main
 
 import (
-	"strings"
-	"fmt"
 	"bufio"
+	"fmt"
 	"os"
-) 
-
-type cliCommand struct {
-	name        string 
-	description string 
-	callback		func() error
-}
+	"strings"
+)
 
 func startRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
+	
+	var conf config
+	cliCommands := getCommands(&conf)
 
 	for {
 		fmt.Print("Pokedex > ")
-		
-		scanner.Scan()			
+			
+		scanner.Scan()
 		words := cleanInput(scanner.Text())
 
 		commandWord := words[0]
+		args := words[:1]
 
-		cliCommands := getCommands()
+		cmd, ok := cliCommands[commandWord]
+		if !ok {
+			fmt.Println("Uknown command")
+			continue 
+		}
 
-		if commandWord == cliCommands[commandWord].name {
-			cliCommands[commandWord].callback()
-		} else {
-			fmt.Println("Unknown command")
+		if err := cmd.callback(args); err != nil {
+			fmt.Println("Error: ", err)
 		}
 	}
 }
@@ -39,5 +39,3 @@ func cleanInput(text string) []string {
 	words := strings.Fields(lowered)
 	return words
 }
-
-
