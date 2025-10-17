@@ -1,3 +1,4 @@
-module github.com/luis-octavius/pokedex-cli
+module pokedex-cli
 
 go 1.25.1
+
