@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
-	"pokedex-cli/pokeapi"
+	"github.com/luis-octavius/pokedex-cli/internal/pokeapi"
 )
 
 type cliCommand struct {
